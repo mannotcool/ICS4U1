@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class Main {
+    
+    public static void main(String[] args) {
+
+        // Obtain user input and declare the scanner class
+        Scanner input = new Scanner(System.in);
+        int userInput = 0;
+
+        int preChecksumTotal = 0;
+        // Check to see if they have a student number of 0 
+        while (true) {
+          userInput = input.nextInt();
+
+          if (userInput == 0) {
+            break;
+          }
+         
+          // ensure the student numbers are of appropriate length
+          if ((userInput >= 100000000) && (userInput <= 999999999)) {
+             // Tally 
+             int preTotal = 0;
+      
+             // Keep a multiple that we will use to go through each digit
+             int currentMultiple = 1;
+             
+             for (int i = 0; i < 9; i++) {
+               int digit = ((userInput % (currentMultiple * 10)) - (userInput % currentMultiple)) / currentMultiple;
+        
+               //if even
+               if (i % 2 != 0) {
+                 if ((digit * 2) >= 10) {
+                   // System.out.println("DOUBLE + SPECIAL:" + ((digit * 2) / 10 + (digit * 2) % 10));
+                   preTotal = preTotal + (digit * 2) / 10 + (digit * 2) % 10;
+                 } else {
+                   // System.out.println("DOUBLE:" + digit * 2);
+                   preTotal = preTotal + (digit * 2);
+                 }
+               } else {
+                 // System.out.println(digit);
+                 preTotal = preTotal + digit;
+               }
+               
+               currentMultiple = currentMultiple * 10;
+             }
+            
+            if (preTotal % 10 != 0) {
+              System.out.println("false");
+            } else {
+              System.out.println("true");
+            }
+
+          } else {
+            System.out.println("wrong length");
+          }
+        }
+      
+        System.out.print("Bye Bye");
+        
+          
+      
+        
+    }
+}
