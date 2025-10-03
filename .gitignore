@@ -1,2 +1,4 @@
 *.class
 .env
+
+.DS_Store

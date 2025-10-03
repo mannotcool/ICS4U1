@@ -5,7 +5,7 @@ public class FunWithStrings {
         System.out.println(countChars('E', "heeeeello"));
         System.out.println(reverseString("sup"));
         System.out.println(isPalindrome("racecar"));
-        System.out.println(findFirstHTMLTag("racecar"));
+        System.out.println(findFirstHTMLTag("raceca<html>r"));
              
     }
      
@@ -52,16 +52,7 @@ public class FunWithStrings {
     // is pallindromic or false otherwise.  Hint: Can you reuse one of your 
     // other methods to simplify this?
     public static boolean isPalindrome( String str) {
-        String newString = "";
-        for ( int count = str.length() - 1; count >= 0; count-- ) {
-            newString = newString + str.charAt( count);
-        }
-        
-        if (newString.equals(str)) {
-            return true;
-        } else {
-            return false;
-        }
+        return str.equals(reverseString(str)); 
     }
     
     // Returns a string containing the first HTML tag found in text (including
@@ -71,7 +62,6 @@ public class FunWithStrings {
         int firstBracketPos = text.indexOf( '<' );
         int secondBracketPos = text.indexOf( '>' );
         if (firstBracketPos != -1 && secondBracketPos != -1 ) {
-            System.out.println(text.substring( firstBracketPos, secondBracketPos + 1));
             return text.substring( firstBracketPos, secondBracketPos + 1 );
         } else {
             return null;
