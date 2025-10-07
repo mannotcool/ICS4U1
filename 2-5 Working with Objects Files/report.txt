@@ -1,0 +1,5 @@
+Analysis of filename: input.txt
+4 digits
+3 uppercase letters
+5 lowercase letters
+3 spaces
