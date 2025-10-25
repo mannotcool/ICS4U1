@@ -1,6 +1,6 @@
 package shape2D;
 
-public class FillableShape {
+abstract public class FillableShape {
     private int x1;
     private int x2;
     private int y1;
@@ -117,6 +117,8 @@ public class FillableShape {
             return y2;
         }
     }
+
+    abstract public double calcArea();
     
     public String toString() {
         return getx1() + "," + getx2() + "," + gety1() + "," + getx2() + "," + getfilledShape();
