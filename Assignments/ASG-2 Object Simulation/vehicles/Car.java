@@ -1,0 +1,174 @@
+package vehicles;
+
+public class Car extends Vehicle {
+    private int enginePower = 0;
+    private int tireGrip = 0;
+    private int turnRate = 0;
+
+    public Car(double maxCapableSpeed, int acceleration, int weight, int enginePower, int tireGrip, int turnRate) {
+        super(maxCapableSpeed, acceleration, weight);
+        setEnginePower(enginePower);
+        setTireGrip(tireGrip);
+        setTurnRate(turnRate);
+    }
+
+    /**
+     * Accessor method to access the engine power of the car.
+     * @return car engine power
+     */
+    public int getEnginePower() {
+        return enginePower;
+    }
+
+    /**
+     * Accessor method to access the grip of the tires of the car.
+     * @return car tire grip
+     */
+    public int getTireGrip() {
+        return tireGrip;
+    }
+    
+    /**
+     * Accessor method to get the turn rate of the car.
+     * @return car turn rate
+     */
+    public int getTurnRate() {
+        return turnRate;
+    }
+
+    /**
+     * Mutator method to set the engine power of the car. To ensure it's reasonable, it only accepts values between 
+     * 50 to 400.
+     * 
+     * @param newEnginePower new engine power to be set
+     */
+    public void setEnginePower(int newEnginePower) {
+        if (newEnginePower < 50) {
+            System.err.println("Engine power must be at least 50. Defaulting to 50...");
+            enginePower = 50;
+        } else if (newEnginePower > 400) {
+            System.err.println("Engine power must be at most 400. Defaulting to 400...");
+            enginePower = 400;
+        } else {
+            enginePower = newEnginePower;
+        }
+    }
+
+    /**
+     * Mutator method to set the tire grip of the car. To ensure it's reasonable, it only accepts values between 
+     * 1 to 10.
+     * 
+     * @param newTireGrip new tire grip to be set
+     */
+    public void setTireGrip(int newTireGrip) {
+        if (newTireGrip < 1) {
+            System.err.println("Tire grip must be at least 1. Defaulting to 1...");
+            tireGrip = 1;
+        } else if (newTireGrip > 10) {
+            System.err.println("Tire grip must be at most 10. Defaulting to 10...");
+            tireGrip = 10;
+        } else {
+            tireGrip = newTireGrip;
+        }
+    }
+
+    /**
+     * Mutator method to set the turn rate of the car. To ensure it's reasonable, it only accepts values between 
+     * 1 to 20.
+     * 
+     * @param newTurnRate new turn rate to be set
+     */
+    public void setTurnRate(int newTurnRate) {
+        if (newTurnRate < 1) {
+            System.err.println("Turn rate must be at least 1. Defaulting to 1...");
+            turnRate = 1;
+        } else if (newTurnRate > 20) {
+            System.err.println("Turn rate must be at most 20. Defaulting to 20...");
+            turnRate = 20;
+        } else {
+            turnRate = newTurnRate;
+        }
+    }
+
+    /**
+     * Method to calculate a hypothetical speed of a car while still considering the weight of itself.
+     * This method considers other car specific factors such as a vehicles engine power, and the grip of the tires.
+     * 
+     * @param speed Vehicle Speed
+     * @param weight Vehicle Weight
+     * @param acceleration Vehicle Acceleration
+     * @return accurate speed of car
+     */
+    @Override
+    public double calcSpeed(double speed, int weight, int acceleration) {
+        // The 0.02 factor simulates friction and air resistance affecting the car's speed. 
+        return speed + ((double) enginePower * tireGrip) / weight * acceleration - (speed * 0.02);
+    }
+    
+    /**
+     * Method to attempt to turn the car based on a required turn radius.
+     * 
+     * @param requiredTurnRadius required turn radius to successfully navigate
+     * @return true if successful, false otherwise
+     */
+    public boolean attemptTurn(int requiredTurnRadius) {
+        // obstacles have a certain turn radius needed to successfully navigate 
+        if (turnRate >= requiredTurnRadius) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Method to turbo boost the car, increasing its speed by 25% of its current speed. Turboing will reduce the car's 
+     * engine power by 20 after each use.
+     */    
+    public void turboBoost() {
+        double boostedSpeed = getSpeed() * 1.25;
+        if (boostedSpeed > getMaxCapableSpeed()) {
+            setSpeed(getMaxCapableSpeed());
+            System.err.println("Attempt to turbo boost speed exceeded max capable speed. Defaulting to max capable speed.");
+        } else {
+            setSpeed(boostedSpeed);
+            System.out.println("Turbo boosted! Speed is now: " + boostedSpeed);
+        }
+        setEnginePower(enginePower - 20);
+    }
+
+    /**
+     * The weather debuff method simulates the effect of bad weather conditions on the car's tire grip.
+     * It reduces the tire grip by a random amount between 1 and whatever the original tire grip was, ensuring that the tire grip does not fall below 1.
+     */
+    @Override
+    public void weatherDebuff() {
+        int debuffAmount = (int)(Math.random() * tireGrip) + 1; // Random number between 1 and original tire grip
+        int newTireGrip = tireGrip - debuffAmount;
+
+        // ensure tire grip does not fall below 1 to avoid unnecessary error messages
+        if (newTireGrip < 1) {
+            newTireGrip = 1; 
+        }
+
+        setTireGrip(newTireGrip);
+        System.out.println("Due to bad weather, the car's tire grip is now: " + newTireGrip);
+    }
+
+    /** 
+     * Method to simulate a very rare chance of engine issues, reducing engine power by a random amount
+     * between 10 and 100. The engine power will not fall below 50.
+     */
+    public void engineIssueDebuff() {
+        int debuffAmount = (int)(Math.random() * 91) + 10; // Random number between 10 and 100.
+        int newEnginePower = enginePower - debuffAmount;
+
+        // i still want to ensure engine power does not fall below 50 here so there isnt an unnecessary error message
+        if (newEnginePower < 50) {
+            newEnginePower = 50; 
+        }
+
+        setEnginePower(newEnginePower);
+        System.out.println("Due to engine issues, the car's engine power is now: " + newEnginePower);
+    }
+
+}
