@@ -90,7 +90,7 @@ public class Simulation {
                 placeObstacle(car, helicopter);
             }
 
-            // random 5 percent chance of turbo boost for car
+            // random 5 percent chance of turbo-boost for car
             if (Math.random() < 0.05) {
                 car.turboBoost();
             }

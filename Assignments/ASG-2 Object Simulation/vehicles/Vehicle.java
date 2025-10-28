@@ -17,7 +17,7 @@ public abstract class Vehicle {
     /**
      * Defines and creates a vehicle with a base maxSpeed, base acceleration and weight.
      * 
-     * @param newMaxSpeed Maximum Possible Vehicle Speed
+     * @param maxCapableSpeed Maximum Possible Vehicle Speed
      * @param acceleration Vehicle Acceleration
      * @param weight Vehicle Weight
      */
@@ -198,6 +198,6 @@ public abstract class Vehicle {
      * @return various vehicle statistics including race position and speed.
      */
     public String toString() {
-        return "Completed " + getRacePositionPercentage() + "% of the race, travaling at " + getSpeed() + "km/h.";
+        return "Completed " + getRacePositionPercentage() + "% of the race, traveling at " + getSpeed() + "km/h.";
     }
 }
