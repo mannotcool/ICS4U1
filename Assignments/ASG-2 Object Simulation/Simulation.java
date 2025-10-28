@@ -2,9 +2,20 @@ import vehicles.Car;
 import vehicles.Helicopter;
 import vehicles.Vehicle;
 
+/**
+ * This class runs the simulation between a Car and a Helicopter. it creates both vehicles with random attributes,
+ * simulates weather conditions, and runs the race while handling obstacles and buffs/debuffs.
+ * 
+ * @author Nick Stoyanov
+ * @version Oct 26, 2025
+ */
 public class Simulation {
+    /** Main method to run the simulation
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to the super super accurate Car VS Helicopter Simulation!");
+
         // Create a Car object with random attributes
         Car primaryCar = new Car(
             Math.random() * 180 + 150,        // maxCapableSpeed: 150–330
@@ -25,6 +36,7 @@ public class Simulation {
             (int)(Math.random() * 2400) + 400   // altitude: 400–2800
         );
 
+        // Print initial stats
         System.out.println("\nInitial Vehicle Stats:");
         System.out.println("Car - Max Speed: " + primaryCar.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryCar.getAcceleration() + " km/h, Weight: " + primaryCar.getVehicleWeight() + " kg, Engine Power: " + primaryCar.getEnginePower() + ", Tire Grip: " + primaryCar.getTireGrip() + ", Turn Rate: " + primaryCar.getTurnRate());
         System.out.println("Helicopter - Max Speed: " + primaryHelicopter.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryHelicopter.getAcceleration() + " km/h, Weight: " + primaryHelicopter.getVehicleWeight() + " kg, Lift Power: " + primaryHelicopter.getLiftPower() + ", Rotor Efficiency: " + primaryHelicopter.getRotorEfficiency() + ", Altitude: " + primaryHelicopter.getAltitude() + " m");
@@ -39,16 +51,12 @@ public class Simulation {
             System.out.println("Weather is clear.");
         }
 
-        // Run
+        // Run the race
         System.out.println("\n-- Starting the race! --");
         runRace(primaryCar, primaryHelicopter);
-        System.out.println("\nFinal Vehicle Stats After Race:");
-        System.out.println("Car: " + primaryCar);
-        System.out.println("Helicopter: " + primaryHelicopter);
 
     }
 
-    
     /**
      * Method to change a vehicle object's race position depending on its speed.
      * @param vehicle Vehicle object whose

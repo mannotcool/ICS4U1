@@ -1,10 +1,25 @@
 package vehicles;
 
+/**
+ * This class is the base for a Helicopter object, which is a type of Vehicle.
+ * 
+ * @author Nick Stoyanov
+ * @version Oct 26, 2025
+ */
 public class Helicopter extends Vehicle {
     private int liftPower = 0;
     private int rotorEfficiency = 0;
     private int altitude = 0;
 
+    /**
+     * Constructor for a Helicopter object.
+     * @param maxCapableSpeed maximum capable speed of the helicopter
+     * @param acceleration acceleration of the helicopter
+     * @param weight weight of the helicopter
+     * @param liftPower lift power of the helicopter
+     * @param rotorEfficiency rotor efficiency of the helicopter
+     * @param altitude altitude of the helicopter
+     */
     public Helicopter(double maxCapableSpeed, int acceleration, int weight, int liftPower, int rotorEfficiency, int altitude) {
         super(maxCapableSpeed, acceleration, weight);
         setLiftPower(liftPower);

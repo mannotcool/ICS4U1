@@ -1,10 +1,25 @@
 package vehicles;
 
+/**
+ * This class is the base for a Helicopter object, which is a type of Vehicle.
+ * 
+ * @author Nick Stoyanov
+ * @version Oct 26, 2025
+ */
 public class Car extends Vehicle {
     private int enginePower = 0;
     private int tireGrip = 0;
     private int turnRate = 0;
 
+    /**
+     * Constructor for a Car object.
+     * @param maxCapableSpeed maximum capable speed of the car
+     * @param acceleration acceleration of
+     * @param weight weight of the car
+     * @param enginePower engine power of the car
+     * @param tireGrip tire grip of the car
+     * @param turnRate turn rate of the car
+     */
     public Car(double maxCapableSpeed, int acceleration, int weight, int enginePower, int tireGrip, int turnRate) {
         super(maxCapableSpeed, acceleration, weight);
         setEnginePower(enginePower);
@@ -128,10 +143,10 @@ public class Car extends Vehicle {
         double boostedSpeed = getSpeed() * 1.25;
         if (boostedSpeed > getMaxCapableSpeed()) {
             setSpeed(getMaxCapableSpeed());
-            System.err.println("Attempt to turbo boost speed exceeded max capable speed. Defaulting to max capable speed.");
+            System.err.println("\nAttempt to turbo boost speed exceeded max capable speed. Defaulting to max capable speed.");
         } else {
             setSpeed(boostedSpeed);
-            System.out.println("Turbo boosted! Speed is now: " + boostedSpeed);
+            System.out.println("\nTurbo boosted! Speed is now: " + boostedSpeed);
         }
         setEnginePower(enginePower - 20);
     }
@@ -168,7 +183,7 @@ public class Car extends Vehicle {
         }
 
         setEnginePower(newEnginePower);
-        System.out.println("Due to engine issues, the car's engine power is now: " + newEnginePower);
+        System.out.println("\nDue to engine issues, the car's engine power is now: " + newEnginePower);
     }
 
 }
