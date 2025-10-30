@@ -158,7 +158,7 @@ public class Car extends Vehicle {
             System.err.println("\nAttempt to turbo boost speed exceeded max capable speed. Defaulting to max capable speed.");
         } else {
             setSpeed(boostedSpeed);
-            System.out.println("\nTurbo boosted! Speed is now: " + boostedSpeed);
+            System.out.println("\nTurbo boosted! Speed is now: " + boostedSpeed + "km/h.");
         }
         setEnginePower(enginePower - 20);
     }

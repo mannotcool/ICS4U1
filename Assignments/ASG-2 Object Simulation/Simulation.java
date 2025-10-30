@@ -17,28 +17,28 @@ public class Simulation {
     public static void main(String[] args) {
         System.out.println("Welcome to the super super accurate Car VS Helicopter Simulation!");
 
-        // Create a Car object with random attributes
+        // Create a Car object
         Car primaryCar = new Car(
-            0,                                 // initial speed
+            0,                          // initial speed
             Math.random() * 180 + 150,        // maxCapableSpeed: 150–330
             (int)(Math.random() * 11) + 10,   // acceleration: 10–20
             (int)(Math.random() * 700) + 900, // weight: 900–1600
             (int)(Math.random() * 221) + 180, // enginePower: 180–400
             (int)(Math.random() * 6) + 5,     // tireGrip: 5–10
-            (int)(Math.random() * 11) + 5,     // turnRate: 5–15
-            0
+            (int)(Math.random() * 11) + 5,    // turnRate: 5–15
+            0                                 // racePercentage
         );
     
-        // Create a Helicopter object with random attributes
+        // Create a Helicopter object
         Helicopter primaryHelicopter = new Helicopter(
-            0,                                 // initial speed
-            Math.random() * 220 + 180,       // maxCapableSpeed: 180–400
-            (int)(Math.random() * 11) + 10,  // acceleration: 10–20
+            0,                            // initial speed
+            Math.random() * 220 + 180,          // maxCapableSpeed: 180–400
+            (int)(Math.random() * 11) + 10,     // acceleration: 10–20
             (int)(Math.random() * 3000) + 1200, // weight: 1200–4200
             (int)(Math.random() * 501) + 300,   // liftPower: 300–800
             (int)(Math.random() * 6) + 5,       // rotorEfficiency: 5–10
-            (int)(Math.random() * 2400) + 400,   // altitude: 400–2800
-            0
+            (int)(Math.random() * 2400) + 400,  // altitude: 400–2800
+            0                                   // racePercentage
         );
 
         // Print initial stats
@@ -135,7 +135,7 @@ public class Simulation {
         int obstacleTurnRadius = (int)(Math.random() * 20) + 5; // between 5 and 25
         int obstacleHeight = (int)(Math.random() * 2500) + 500; // between 500 and 3000
 
-        System.out.println("\nAn obstacle has appeared with Turn Radius: " + obstacleTurnRadius + ", and Height: " + obstacleHeight);
+        System.out.println("\nAn obstacle has appeared with Turn Radius: " + obstacleTurnRadius + ", and Height: " + obstacleHeight + "m");
 
         // Check if car can navigate the turn
         if (!car.attemptTurn(obstacleTurnRadius)) {
@@ -154,12 +154,19 @@ public class Simulation {
             helicopter.slowDownByPercentage(randomSlowDown);
             System.out.println("Helicopter failed to clear the mountain, slowing it down by " + randomSlowDown + "%");
             
-            // if altitude is less than obstacle height, increase it while making sure its not above max altitude of 3000
-            int newAltitude = helicopter.getAltitude() + 500;
-            if (newAltitude > 3000) {
-                newAltitude = 3000;
+            // increase altitude by up to 500 without exceeding max 3000
+            int altitudeDeficit = 3000 - helicopter.getAltitude();
+            int limit = 500;
+
+            // if the altitude deficit is less than the limit, adjust the limit
+            if (altitudeDeficit < limit) {
+                limit = altitudeDeficit;
+            }
+            if (limit > 0) {
+                helicopter.changeAltitude(limit);
             }
 
+            int newAltitude = helicopter.getAltitude();
             helicopter.setAltitude(newAltitude);
             System.out.println("Helicopter altitude increased to " + newAltitude + "m");
         } else {
