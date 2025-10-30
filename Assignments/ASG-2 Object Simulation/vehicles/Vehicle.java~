@@ -21,7 +21,7 @@ public abstract class Vehicle {
      * @param maxCapableSpeed Maximum Possible Vehicle Speed
      * @param acceleration Vehicle Acceleration
      * @param weight Vehicle Weight
-     * @param racePositionPercentage Percentage of race completed
+     * @param racePosition Percentage of race completed
      */
     public Vehicle(double speed, double maxCapableSpeed, int acceleration, int weight, int racePositionPercentage) {
         setSpeed(speed);
@@ -106,7 +106,7 @@ public abstract class Vehicle {
      * Mutator method to validate and set the maximum speed of a vehicle object (assumed in kmh).
      * The maximum speed always be the same or more than the current vehicle speed.
      * 
-     * @param newMaxCapableSpeed Max Vehicle Speed
+     * @param newMaxSpeed Max Vehicle Speed
      */
     public void setMaxCapableSpeed (double newMaxCapableSpeed) {
         if (newMaxCapableSpeed < speed) {
@@ -186,7 +186,6 @@ public abstract class Vehicle {
      * @param speed Vehicle Speed
      * @param weight Vehicle Weight
      * @param acceleration Vehicle Acceleration
-     * @return calculcated speed
      */
     public abstract double calcSpeed(double speed, int weight, int acceleration);
 

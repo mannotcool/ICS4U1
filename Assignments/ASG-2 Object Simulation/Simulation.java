@@ -10,6 +10,7 @@ import vehicles.Vehicle;
  * @version Oct 26, 2025
  */
 public class Simulation {
+
     /** Main method to run the simulation
      * @param args command line arguments
      */
@@ -18,28 +19,32 @@ public class Simulation {
 
         // Create a Car object with random attributes
         Car primaryCar = new Car(
+            0,                                 // initial speed
             Math.random() * 180 + 150,        // maxCapableSpeed: 150–330
             (int)(Math.random() * 11) + 10,   // acceleration: 10–20
             (int)(Math.random() * 700) + 900, // weight: 900–1600
             (int)(Math.random() * 221) + 180, // enginePower: 180–400
             (int)(Math.random() * 6) + 5,     // tireGrip: 5–10
-            (int)(Math.random() * 11) + 5     // turnRate: 5–15
+            (int)(Math.random() * 11) + 5,     // turnRate: 5–15
+            0
         );
     
         // Create a Helicopter object with random attributes
         Helicopter primaryHelicopter = new Helicopter(
+            0,                                 // initial speed
             Math.random() * 220 + 180,       // maxCapableSpeed: 180–400
             (int)(Math.random() * 11) + 10,  // acceleration: 10–20
             (int)(Math.random() * 3000) + 1200, // weight: 1200–4200
             (int)(Math.random() * 501) + 300,   // liftPower: 300–800
             (int)(Math.random() * 6) + 5,       // rotorEfficiency: 5–10
-            (int)(Math.random() * 2400) + 400   // altitude: 400–2800
+            (int)(Math.random() * 2400) + 400,   // altitude: 400–2800
+            0
         );
 
         // Print initial stats
         System.out.println("\nInitial Vehicle Stats:");
-        System.out.println("Car - Max Speed: " + primaryCar.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryCar.getAcceleration() + " km/h, Weight: " + primaryCar.getVehicleWeight() + " kg, Engine Power: " + primaryCar.getEnginePower() + ", Tire Grip: " + primaryCar.getTireGrip() + ", Turn Rate: " + primaryCar.getTurnRate());
-        System.out.println("Helicopter - Max Speed: " + primaryHelicopter.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryHelicopter.getAcceleration() + " km/h, Weight: " + primaryHelicopter.getVehicleWeight() + " kg, Lift Power: " + primaryHelicopter.getLiftPower() + ", Rotor Efficiency: " + primaryHelicopter.getRotorEfficiency() + ", Altitude: " + primaryHelicopter.getAltitude() + " m");
+        System.out.println("Car - Max Speed: " + primaryCar.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryCar.getAcceleration() + " km/h^2, Weight: " + primaryCar.getVehicleWeight() + " kg, Engine Power: " + primaryCar.getEnginePower() + ", Tire Grip: " + primaryCar.getTireGrip() + ", Turn Rate: " + primaryCar.getTurnRate());
+        System.out.println("Helicopter - Max Speed: " + primaryHelicopter.getMaxCapableSpeed() + " km/h, Acceleration: " + primaryHelicopter.getAcceleration() + " km/h^2, Weight: " + primaryHelicopter.getVehicleWeight() + " kg, Lift Power: " + primaryHelicopter.getLiftPower() + ", Rotor Efficiency: " + primaryHelicopter.getRotorEfficiency() + ", Altitude: " + primaryHelicopter.getAltitude() + " m");
 
         // Simulate weather debuff (40% chance)
         System.out.println("\nChecking for bad weather...");
@@ -59,7 +64,7 @@ public class Simulation {
 
     /**
      * Method to change a vehicle object's race position depending on its speed.
-     * @param vehicle Vehicle object whose
+     * @param vehicle Vehicle object whose race position is to be updated
      */
     public static void updateRacePosition(Vehicle vehicle) {
         int positionIncrease = (int)(vehicle.getSpeed() / 10); // The faster the speed, the more the position increases

@@ -13,18 +13,30 @@ public class Helicopter extends Vehicle {
 
     /**
      * Constructor for a Helicopter object.
+     * @param speed Current speed of the helicopter
      * @param maxCapableSpeed maximum capable speed of the helicopter
      * @param acceleration acceleration of the helicopter
      * @param weight weight of the helicopter
      * @param liftPower lift power of the helicopter
      * @param rotorEfficiency rotor efficiency of the helicopter
      * @param altitude altitude of the helicopter
+     * @param racePositionPercentage percentage of race
      */
-    public Helicopter(double maxCapableSpeed, int acceleration, int weight, int liftPower, int rotorEfficiency, int altitude) {
-        super(maxCapableSpeed, acceleration, weight);
+    public Helicopter(double speed, double maxCapableSpeed, int acceleration, int weight, int liftPower, int rotorEfficiency, int altitude, int racePositionPercentage) {
+        super(speed, maxCapableSpeed, acceleration, weight, racePositionPercentage);
         setLiftPower(liftPower);
         setRotorEfficiency(rotorEfficiency);
         setAltitude(altitude);
+    }
+
+    /**
+     * No argument constructor
+     */
+    public Helicopter(){
+        super(0, 0, 0, 0, 0);
+        this.liftPower = 0;
+        this.rotorEfficiency = 0;
+        this.altitude = 0;
     }
 
     /**

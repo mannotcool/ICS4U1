@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/2-7 Constructors" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/2-8 The Final and Static Keywords" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/2-9 Enhancing the Fraction Class" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/3-1" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

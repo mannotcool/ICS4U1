@@ -13,14 +13,12 @@ public class Car extends Vehicle {
 
     /**
      * Constructor for a Car object.
-     * @param speed base speed for car
      * @param maxCapableSpeed maximum capable speed of the car
      * @param acceleration acceleration of
      * @param weight weight of the car
      * @param enginePower engine power of the car
      * @param tireGrip tire grip of the car
      * @param turnRate turn rate of the car
-     * @param racePositionPercentage current race percentage
      */
     public Car(double speed, double maxCapableSpeed, int acceleration, int weight, int enginePower, int tireGrip, int turnRate, int racePositionPercentage) {
         super(speed, maxCapableSpeed, acceleration, weight, racePositionPercentage);
