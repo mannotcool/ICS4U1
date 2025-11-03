@@ -66,7 +66,7 @@ public class Simulation {
      * Method to change a vehicle object's race position depending on its speed.
      * @param vehicle Vehicle object whose race position is to be updated
      */
-    private static void updateRacePosition(Vehicle vehicle) {
+    public static void updateRacePosition(Vehicle vehicle) {
         int positionIncrease = (int)(vehicle.getSpeed() / 10); // The faster the speed, the more the position increases
         int newPosition = vehicle.getRacePositionPercentage() + positionIncrease;
         if (newPosition > 100) {
@@ -114,8 +114,8 @@ public class Simulation {
             updateRacePosition(car);
             updateRacePosition(helicopter);
 
-            // Print car and helicopter status every 5% of the race
-            if (car.getRacePositionPercentage() % 5 == 0 || helicopter.getRacePositionPercentage() % 5 == 0) {
+            // Print car and helicopter status every 10% of the race
+            if (car.getRacePositionPercentage() % 10 == 0 || helicopter.getRacePositionPercentage() % 10 == 0) {
                 System.out.println("\n---");
                 System.out.println("Car: " + car);
                 System.out.println("Helicopter: " + helicopter);

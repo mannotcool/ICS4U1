@@ -20,7 +20,7 @@ public class Helicopter extends Vehicle {
      * @param liftPower lift power of the helicopter
      * @param rotorEfficiency rotor efficiency of the helicopter
      * @param altitude altitude of the helicopter
-     * @param racePositionPercentage percentage of race
+     * @param racePositionPercentage percentage of race completed
      */
     public Helicopter(double speed, double maxCapableSpeed, int acceleration, int weight, int liftPower, int rotorEfficiency, int altitude, int racePositionPercentage) {
         super(speed, maxCapableSpeed, acceleration, weight, racePositionPercentage);
