@@ -1,7 +1,9 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         int[] numbs = new int[10];
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int count = 0;
         while (count < 10) {
             System.out.print("enter an integer between 1 and 100: ");

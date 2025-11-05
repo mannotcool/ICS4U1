@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> friends = new ArrayList<>();
+
+        // print friends
+        while (true) {
+            // print friends
+            System.out.println("Your friends:");
+            printFriends(friends);
+            // Enter 1 to add a friend, 2 to remove a friend, 3 to clear all friends, 4 to exit: 
+            System.out.print("Enter 1 to add a friend, 2 to remove a friend, 3 to clear all friends, 4 to exit: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // consume the newline character
+
+            if (choice == 1) {
+                System.out.print("Enter a friend's name: ");
+                String name = scanner.nextLine();
+                // see if name is already in friends and if so, print "You are already friends with [name]"
+                if (friends.contains(name)) {
+                    System.out.println("You are already friends with " + name);
+                    continue;
+                } else {
+                    friends.add(name);
+                }
+            } else if (choice == 2) {
+                System.out.print("Enter the name of the friend to remove: ");
+                String name = scanner.nextLine();
+                // if name is not in friends, print "You are not friends with [name]"
+                if (!friends.contains(name)) {
+                    System.out.println("You are not friends with " + name);
+                    continue;
+                }
+                
+                friends.remove(name);
+            } else if (choice == 3) {
+                System.out.println("Clearing all friends...");
+                friends.clear();
+            } else if (choice == 4) {
+                break;
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+    }
+
+    public static void printFriends(ArrayList<String> friends) {
+        // if no friends, print that u have no friends lol
+        if (friends.size() == 0) {
+            System.out.println("No friends (yet).");
+            return;
+        }
+
+        // use toString method to print friends
+        System.out.println("- " + friends.toString());
+    }
+}
