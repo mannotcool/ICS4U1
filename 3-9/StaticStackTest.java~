@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+class StaticStackTest {
+    public static void main(String[] args) {
+        String command;
+        Scanner keyInput = new Scanner(System.in);
+        // get a string, make a stack the size of the string and reverse it
+        System.out.print("Enter a string: ");
+        String inputString = keyInput.nextLine();
+        int stackSize = inputString.length();
+        
+        StaticStack stack = new StaticStack(stackSize);
+        for (int i = 0; i < stackSize; i++) {
+            stack.push(inputString.charAt(i));
+        }
+
+        String reversedString = "";
+        
+        while (!stack.isEmpty()) {
+            reversedString += stack.pop();
+        }
+        System.out.println(reversedString);
+    }
+}
