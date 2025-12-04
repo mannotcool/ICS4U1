@@ -6,7 +6,7 @@ public class MyPanel extends JPanel {
     private int choice; 
 
     public MyPanel() {
-        // Ask the user for shape choice
+        // ask the user for shape choice
         String input = JOptionPane.showInputDialog(
                 "Enter 1 for rectangles or 2 for ovals:"
         );
@@ -22,7 +22,7 @@ public class MyPanel extends JPanel {
         int width = 40;
         int height = 25;
 
-        // Draw 10 cascading shapes
+        // draw 10 shapes
         for (int i = 0; i < 10; i++) {
 
             if (choice == 1) {
@@ -31,7 +31,7 @@ public class MyPanel extends JPanel {
                 g.drawOval(x, y, width, height);
             }
 
-            // Update values to create the cascade effect
+            // update values to create the cascade effect
             x += 15;
             y += 15;
             width += 10;
