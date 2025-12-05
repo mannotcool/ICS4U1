@@ -7,27 +7,29 @@
 import java.util.Scanner;
 
 public class Game {
-    private int currentPlayer = 0;
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        System.out.println("Welcome to nick's super epic connect-4 recreation!");
         Board board = new Board();
-
         board.getBoard();
-        // do a while loop here to keep the game going until a player wins or the board is full
-
+        
         Scanner scanner = new Scanner(System.in);
-        while (board.getEmptyCells() > 0) {
-            System.out.println("Player " + (board.getEmptyCells() % 2 == 0 ? "●" : "○") + ", enter a column (1-7) to place your piece:");
-            int col = scanner.nextInt() - 1; // adjust for 0-indexed array
-            if (col < 0 || col > 6) {
-                System.out.println("Invalid column. Please choose a column between 1 and 7.");
-                continue;
+        while (board.getEmptyCells() > 0 && board.getWinner() == null) {
+            // the player will be '●' and the ai will be '○'
+            System.out.print("Enter the column (1-7) you would like to place your piece in: ");
+            int playerCol = scanner.nextInt() - 1;
+            while (playerCol < 0 || playerCol > 6 || board.isColumnFull(playerCol)) {
+                System.out.print("Invalid column. Please enter a different column (1-7): ");
+                playerCol = scanner.nextInt() - 1;
             }
-            board.placeCell(col, board.getEmptyCells() % 2 == 0 ? '●' : '○');
-            board.checkWinner();
+            board.placeCell(playerCol, '●');
             board.getBoard();
+
+            board.aiExecuteBestMove();
+            board.getBoard();
+
         }
-        System.out.println("Game over! It's a draw.");
+        String winner = board.getWinner();
+        System.out.println("\n The winner is... " + winner + "!");
     }
 }
 

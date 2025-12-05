@@ -5,6 +5,9 @@
  * @author Nick Stoyanov
  * @version Dec 2, 2025
  */
+
+import java.util.Random;
+
 public class Board {
     // game board pieces i will use: ● and ○
 
@@ -26,17 +29,16 @@ public class Board {
 
     // method to display the board
     public void getBoard() {
-        System.out.println("    1   2   3   4   5   6   7");
-        System.out.println("  _____________________________");
+        System.out.println("  1   2   3   4   5   6   7");
+        System.out.println("_____________________________");
         for (int i = 0; i < 6; i++) {
             // print each row number
-            System.out.print((i + 1) + " ");
             for (int j = 0; j < 7; j++) {
                 System.out.print("| " + board[i][j] + " ");
             }
             System.out.println("|");
         }
-        System.out.println("  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        System.out.println("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
     }
 
     public void ClearBoard() {
@@ -47,6 +49,10 @@ public class Board {
                 board[i][j] = ' ';
             }
         }
+    }
+
+    public boolean isColumnFull(int col) {
+        return board[0][col] != ' ';
     }
 
     public void placeCell(int col, char piece) {
@@ -61,7 +67,144 @@ public class Board {
         emptyCells--;
     }
 
-    public void checkWinner() {
+    public boolean aiBlockVictory() {
+        for (int col = 0; col < 7; col++) {
+            // skip full columns
+            if (board[0][col] != ' ') continue;
+
+            // find the row where a piece would land in this column
+            int rowToTry = -1;
+            for (int row = 5; row >= 0; row--) {
+                if (board[row][col] == ' ') {
+                    rowToTry = row;
+                    break;
+                }
+            }
+            if (rowToTry == -1) continue;  // should not happen, but just in case
+
+            // simulate opponent move
+            board[rowToTry][col] = '●';
+            boolean opponentWins = (getWinner() != null && getWinner().charAt(0) == '●');
+
+            // undo the simulation
+            board[rowToTry][col] = ' ';
+
+            if (opponentWins) {
+                board[rowToTry][col] = '○';
+                return true; // block the opponent's winning move
+            }
+        }
+        return false;
+    }
+
+    public boolean aiTryToWin() {
+        // scan board to see if there are any winning moves available for the AI
+        for (int col = 0; col < 7; col++) {
+            // skip full columns
+            if (board[0][col] != ' ') continue;
+
+            // find the lowest empty row in this column
+            int placedRow = -1;
+            for (int row = 5; row >= 0; row--) {
+                if (board[row][col] == ' ') {
+                    placedRow = row;
+                    break;
+                }
+            }
+            if (placedRow == -1) continue; // safety
+
+            // simulate placing the AI piece
+            board[placedRow][col] = '○';
+
+            // check if this move wins the game
+            boolean aiWins = (getWinner() != null && getWinner().charAt(0) == '○');
+
+            // undo the simulation
+            board[placedRow][col] = ' ';
+
+            // if it wins, actually play this move
+            if (aiWins) {
+                placeCell(col, '○');
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean aiConstructThree() {
+        for (int col = 0; col < 7; col++) {
+            // skip full columns
+            if (board[0][col] != ' ') continue;
+
+            // find the lowest empty row in this column
+            int placedRow = -1;
+            for (int row = 5; row >= 0; row--) {
+                if (board[row][col] == ' ') {
+                    placedRow = row;
+                    break;
+                }
+            }
+            if (placedRow == -1) continue;  // column somehow full
+
+            // simulate placing the AI piece
+            board[placedRow][col] = '○';
+
+            boolean makesThree = false;
+            for (int i = 0; i < 6 && !makesThree; i++) {
+                for (int j = 0; j < 7 && !makesThree; j++) {
+                    char cur = board[i][j];
+
+                    // only check for AI pieces
+                    if (cur != '○') continue;
+
+                    // horizontal 3
+                    if (j + 2 < 7 && cur == board[i][j + 1] && cur == board[i][j + 2]) {
+                        makesThree = true;
+                    }
+                    // vertical 3
+                    else if (i + 2 < 6 && cur == board[i + 1][j] && cur == board[i + 2][j]) {
+                        makesThree = true;
+                    }
+                    // diagonal down-right
+                    else if (i + 2 < 6 && j + 2 < 7 && cur == board[i + 1][j + 1] && cur == board[i + 2][j + 2]) {
+                        makesThree = true;
+                    }
+                    // diagonal up-right
+                    else if (i - 2 >= 0 && j + 2 < 7 && cur == board[i - 1][j + 1] && cur == board[i - 2][j + 2]) {
+                        makesThree = true;
+                    }
+                }
+            }
+
+            // undo simulation
+            board[placedRow][col] = ' ';
+
+            if (makesThree) {
+                placeCell(col, '○');
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void aiExecuteBestMove() {
+        // as a computer, the ai should prevent winning moves, try to win, and otherwise play the best move
+        if (aiBlockVictory() || aiTryToWin() || aiConstructThree()) return;
+
+        // otherwise, play a random valid move
+        Random rand = new Random();
+        int col = rand.nextInt(7);
+
+        while (board[0][col] != ' ') {
+            col = rand.nextInt(7);
+        }
+
+        placeCell(col, '○');
+    }
+
+    
+    public String getWinner() {
         // begin with bottom left cell, scan each direction to find 4 in a row
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
@@ -75,8 +218,7 @@ public class Board {
                     currentPiece == board[i][j + 1] &&
                     currentPiece == board[i][j + 2] &&
                     currentPiece == board[i][j + 3]) {
-                    System.out.println("Winner: " + currentPiece);
-                    return;
+                    return String.valueOf(currentPiece);
                 }
 
                 // check vertical
@@ -84,8 +226,7 @@ public class Board {
                     currentPiece == board[i + 1][j] &&
                     currentPiece == board[i + 2][j] &&
                     currentPiece == board[i + 3][j]) {
-                    System.out.println("Winner: " + currentPiece);
-                    return;
+                    return String.valueOf(currentPiece);
                 }
 
                 // check diagonal (bottom-left to top-right)
@@ -93,8 +234,7 @@ public class Board {
                     currentPiece == board[i + 1][j + 1] &&
                     currentPiece == board[i + 2][j + 2] &&
                     currentPiece == board[i + 3][j + 3]) {
-                    System.out.println("Winner: " + currentPiece);
-                    return;
+                    return String.valueOf(currentPiece);
                 }
 
                 // check diagonal (top-left to bottom-right)
@@ -102,10 +242,10 @@ public class Board {
                     currentPiece == board[i - 1][j + 1] &&
                     currentPiece == board[i - 2][j + 2] &&
                     currentPiece == board[i - 3][j + 3]) {
-                    System.out.println("Winner: " + currentPiece);
-                    return;
+                    return String.valueOf(currentPiece);
                 }
             }
         }
+        return null;
     }
 }
