@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Game {
     /**
      * Main line method to run the connect-4 game.
+     * @param args
      */
     public static void main(String[] args) {
         System.out.println("\nWelcome to Nick's super epic connect-4 recreation!");
