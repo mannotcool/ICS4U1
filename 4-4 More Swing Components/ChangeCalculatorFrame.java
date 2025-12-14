@@ -75,7 +75,7 @@ public class ChangeCalculatorFrame extends JFrame {
                 return;
             }
             
-            // Convert to cents and truncate to 2 decimal places
+            // convert to cents and truncate
             int cents = (int)(amount * 100);
             
             int toonies = cents / 200;
